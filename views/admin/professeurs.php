@@ -38,6 +38,15 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style>
+        /* Style pour cacher le bouton d'impression lors de l'impression */
+        @media print {
+            .no-print {
+                display: none;
+            }
+        }
+    </style>
+
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -524,14 +533,16 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" ">
       <!-- Small boxes (Stat box) -->
       <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutprofesseur">
    <button type="button" class="btn btn-info">Ajouter</button>
    </a>
-      <button type="button"target="_blank"   class="btn btn-warning"onclick="window.print()">Imprimer</button>
+   <button class="btn btn-succes" onclick="printContent('content')">Imprimer</button>
+      
       <!-- Small boxes (Stat box) -->
-      <div class="box">
+      <div class="box" id="content">
+      
             <div class="box-header">
               <h3 class="box-title">Professeurs</h3>
             </div>
@@ -549,7 +560,7 @@
                         <th>Classe</th>
                         <th>Cours</th>
                         <th>Section</th>
-                        <th>Actions</th>
+                        <th class="no-print">Actions</th>
                  
                 </tr>
                 </thead>
@@ -567,7 +578,7 @@
                         
                        
                         
-                    <td>
+                    <td class="no-print">
                             <a  class="btn btn-warning" href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=editProfesseur&id=<?php echo $professeur['id']; ?>">Modifier</a> |
                             <a  class="btn btn-danger"   href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=deleteProfesseur&id=<?php echo $professeur['id']; ?>">Supprimer</a>
                         </td>
@@ -575,6 +586,7 @@
                 </tr>
             <?php endforeach; ?>
         </tbody>
+
 
                 
               </table>
@@ -1009,6 +1021,15 @@ $(function () {
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<script>
+        function printContent(elementId) {
+            var content = document.getElementById(elementId).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->

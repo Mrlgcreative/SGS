@@ -531,6 +531,7 @@
               <h3 class="box-title">Prefets</h3>
             </div>
             <!-- /.box-header -->
+            <button class="btn btn-succes" onclick="printContent('content')">Imprimer</button>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -1001,6 +1002,16 @@ $(function () {
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
+
+<script>
+        function printContent(elementId) {
+            var content = document.getElementById(elementId).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>

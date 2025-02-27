@@ -22,15 +22,15 @@ class EmployeModel {
         return $result->fetch_assoc();
     }
 
-    public function add($nom, $prenom, $email, $contact, $poste) {
-        $stmt = $this->db->prepare("INSERT INTO employes (nom, prenom, email, contact, poste) VALUES (?, ?, ?, ?, ?)");
-        $stmt->bind_param("sssss", $nom, $prenom, $email, $contact, $poste);
+    public function add($nom, $prenom, $email, $contact,$adresse, $poste) {
+        $stmt = $this->db->prepare("INSERT INTO employes (nom, prenom, email, contact, adresse, poste) VALUES (?, ?, ?, ?, ?,?)");
+        $stmt->bind_param("ssssss", $nom, $prenom, $email, $contact, $adresse, $poste);
         $stmt->execute();
     }
 
-    public function update($id, $nom, $prenom, $email, $contact, $poste) {
-        $stmt = $this->db->prepare("UPDATE employes SET nom = ?, prenom = ?, email = ?, contact = ?, poste = ? WHERE id = ?");
-        $stmt->bind_param("sssssi", $nom, $prenom, $email, $contact, $poste, $id);
+    public function update($id, $nom, $prenom, $email, $contact, $adresse, $poste) {
+        $stmt = $this->db->prepare("UPDATE employes SET nom = ?, prenom = ?, email = ?, contact = ?, adresse=?, poste = ? WHERE id = ?");
+        $stmt->bind_param("ssssssi", $nom, $prenom, $email, $contact,$adresse, $poste, $id);
         $stmt->execute();
     }
 

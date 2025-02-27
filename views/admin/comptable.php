@@ -38,6 +38,13 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style>
+  @media print{
+    .no-print{
+display: none;
+    }
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -423,7 +430,7 @@
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
-          <ul class="treeview-menu">
+          <ul class="treeview-menu ">
             <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirecteur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
             <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directrices"><i class="fa fa-circle-o"></i> Voir</a></li>
           </ul>
@@ -438,7 +445,7 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addcomptable"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=comptable"><i class="fa fa-circle-o"></i> Voir</a></li>
+            <li><a class="no-print" href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=comptable"><i class="fa fa-circle-o"></i> Voir</a></li>
           </ul>
         </li>
 
@@ -529,7 +536,8 @@
        <!-- Small boxes (Stat box) -->
       
        <!-- Small boxes (Stat box) -->
-       <div class="box">
+       <div class="box" id="content">
+        <button class="no-print btn btn-warning " onclick="printContent('content')">imprimer</button>
             <div class="box-header">
               <h3 class="box-title">Comptables</h3>
             </div>
@@ -545,6 +553,7 @@
                   <th>Email</th>
                   <th>Adresse</th>
                   <th>Section</th>
+                  <th class="no-print">Actions</th>
                 
                 
                  
@@ -562,7 +571,10 @@
                     <td><?php echo $comptabl['section']; ?></td>
                     
                     
-                  
+                    <td class="no-print">
+                            <a  class="btn btn-warning" href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=editProfesseur&id=<?php echo $professeur['id']; ?>">Modifier</a> |
+                            <a  class="btn btn-danger"   href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=deleteProfesseur&id=<?php echo $professeur['id']; ?>">Supprimer</a>
+                        </td>
               
                 </tr>
             <?php endforeach; ?>
@@ -785,6 +797,15 @@
 <script src="../../bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
+<script>
+        function printContent(elementId) {
+            var content = document.getElementById(elementId).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
 <!-- AdminLTE for demo purposes -->
 <script src="../../dist/js/demo.js"></script>
 <!-- page script -->

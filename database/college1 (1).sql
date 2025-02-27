@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 26 fév. 2025 à 11:52
+-- Généré le : jeu. 27 fév. 2025 à 16:57
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -69,8 +69,7 @@ CREATE TABLE `comptable` (
   `prenom` varchar(255) NOT NULL,
   `contact` varchar(20) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `adresse` text NOT NULL,
-  `section` enum('primaire','secondaire','maternel') NOT NULL
+  `adresse` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -165,8 +164,18 @@ CREATE TABLE `employes` (
   `email` varchar(255) NOT NULL,
   `contact` varchar(20) NOT NULL,
   `poste` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `adresse` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Déchargement des données de la table `employes`
+--
+
+INSERT INTO `employes` (`id`, `nom`, `prenom`, `email`, `contact`, `poste`, `created_at`, `adresse`) VALUES
+(2, 'board', 'sky', 'gloirelumingu1@gmail.com', '+(001) 8376-38290', 'femme de menage', '2025-02-27 11:43:39', ''),
+(3, 'board', 'Mr sky', 'sky@mail.com', '+(243) 9787-866765', 'gardien', '2025-02-27 12:17:20', NULL),
+(4, 'board', 'lui', 'sky1@mail.com', '+(243) 9787-866765', 'gardien', '2025-02-27 12:25:13', 'Kolwezi.manika, Moïse Tshombe, mbembe,48');
 
 -- --------------------------------------------------------
 
@@ -503,7 +512,7 @@ ALTER TABLE `eleves`
 -- AUTO_INCREMENT pour la table `employes`
 --
 ALTER TABLE `employes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT pour la table `fee_payments`

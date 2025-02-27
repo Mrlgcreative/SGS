@@ -1,3 +1,54 @@
+<?php
+// Connexion à la base de données
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+// Récupérer le nombre d'élèves inscrits
+$result = $mysqli->query("SELECT COUNT(*) AS total_eleves FROM eleves");
+$row = $result->fetch_assoc();
+$total_eleves = $row['total_eleves'];
+
+// Récupérer le nombre total d'élèves
+$total_eleves_total = $total_eleves; // Vous pouvez ajuster cette requête selon vos besoins
+
+// Récupérer le nombre de professeurs
+$result = $mysqli->query("SELECT COUNT(*) AS total_professeurs FROM professeurs");
+$row = $result->fetch_assoc();
+$total_professeurs = $row['total_professeurs'];
+
+// Récupérer le nombre de directeurs
+$result = $mysqli->query("SELECT COUNT(*) AS total_directeurs FROM directeur");
+$row = $result->fetch_assoc();
+$total_directeurs = $row['total_directeurs'];
+
+// Récupérer le nombre de directrices
+$result = $mysqli->query("SELECT COUNT(*) AS total_directrices FROM directrice");
+$row = $result->fetch_assoc();
+$total_directrices = $row['total_directrices'];
+
+// Récupérer le nombre de préfets
+$result = $mysqli->query("SELECT COUNT(*) AS total_prefets FROM prefet");
+$row = $result->fetch_assoc();
+$total_prefets = $row['total_prefets'];
+
+// Récupérer le nombre de comptables
+$result = $mysqli->query("SELECT COUNT(*) AS total_comptables FROM comptable");
+$row = $result->fetch_assoc();
+$total_comptables = $row['total_comptables'];
+
+// Récupérer le nombre total de frais de paiement
+$result = $mysqli->query("SELECT SUM(amount_paid) AS total_frais FROM fee_payments");
+$row = $result->fetch_assoc();
+$total_frais = $row['total_frais'];
+
+// Fermer la connexion à la base de données
+$mysqli->close();
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -532,9 +583,8 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>Eleves inscrit</p>
+              <h3><?php echo $total_eleves; ?></h3>
+              <p>Eleves inscrits</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -547,8 +597,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
+              <h3><?php echo $total_eleves_total; ?></h3>
               <p>Eleves total</p>
             </div>
             <div class="icon">
@@ -562,8 +611,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
-
+              <h3><?php echo $total_professeurs; ?></h3>
               <p>Professeurs</p>
             </div>
             <div class="icon">
@@ -577,8 +625,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
-
+              <h3><?php echo $total_directeurs;?></h3>
               <p>Directeurs</p>
             </div>
             <div class="icon">
@@ -588,17 +635,14 @@
           </div>
         </div>
         <!-- ./col -->
-      </div>
-
-
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>Eleves inscrit</p>
+              <h3><?php echo $total_directrices; ?></h3>
+              <p>Directrices</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
@@ -611,9 +655,8 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Eleves total</p>
+              <h3><?php echo $total_prefets; ?></h3>
+              <p>Préfets</p>
             </div>
             <div class="icon">
               <i class="ion ion-stats-bars"></i>
@@ -626,9 +669,8 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>44</h3>
-
-              <p>Professeurs</p>
+              <h3><?php echo $total_comptables; ?></h3>
+              <p>Comptables</p>
             </div>
             <div class="icon">
               <i class="ion ion-person-add"></i>
@@ -641,9 +683,8 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
-
-              <p>Directeurs</p>
+              <h3><?php echo $total_frais; ?></h3>
+              <p>Frais de paiement</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>
@@ -651,8 +692,8 @@
             <a href="#" class="small-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
-        <!-- ./col -->
-      </div>
+        </div>
+
       <!-- /.row -->
       <!-- Main row -->
       <div class="box box-success">

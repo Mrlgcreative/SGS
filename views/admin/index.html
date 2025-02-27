@@ -1,0 +1,28 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Page à Imprimer</title>
+   
+</head>
+<body>
+    <div id="content">
+        <!-- Contenu à imprimer -->
+       
+    </div>
+
+    <!-- Bouton d'impression -->
+    <button class="no-print" onclick="printContent('content')">Imprimer</button>
+
+    <script>
+        function printContent(elementId) {
+            var content = document.getElementById(elementId).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
+</body>
+</html>

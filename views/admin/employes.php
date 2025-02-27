@@ -526,6 +526,58 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
+
+      <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Employes</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>Contact</th>
+                  <th>Email</th>
+                  <th>Adresse</th>
+                  <th>Poste</th>
+
+                  <th>Actions</th>
+                
+                
+                 
+                
+                </tr>
+                </thead>
+                <?php foreach ($employes as $employe) : ?>
+                <tr>
+                    <td><?php echo $employe['id']; ?></td>
+                    <td><?php echo $employe['nom']; ?></td>
+                    <td><?php echo $employe['prenom']; ?></td>
+                    <td><?php echo $employe['contact']; ?></td>
+                    <td><?php echo $employe['email']; ?></td>
+                    <td><?php echo $employe['adresse']; ?></td>
+                    <td><?php echo $employe['poste']; ?></td>
+                   
+                    
+                    
+                  
+              
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+        </div>
+      
+</div>
       
       
 </div>

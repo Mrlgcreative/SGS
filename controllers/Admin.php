@@ -186,10 +186,11 @@ public function ajoutemployes() {
         $prenom = $_POST['prenom'];
         $email = $_POST['email'];
         $contact = $_POST['contact'];
+        $adresse= $_POST['adresse'];
         $poste = $_POST['poste'];
 
         $employeModel = new EmployeModel();
-        $employeModel->add($nom, $prenom, $email, $contact, $poste);
+        $employeModel->add($nom, $prenom, $email, $contact,$adresse, $poste);
 
         // Rediriger après ajout
         header("Location: " . BASE_URL . "index.php?controller=Admin&action=employes");
