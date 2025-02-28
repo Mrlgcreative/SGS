@@ -48,17 +48,25 @@ $total_frais = $row['total_frais'];
 $mysqli->close();
 
 // Vérifiez si une session est déjà active avant d'appeler session_start()
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ' . BASE_URL . 'index.php?controller=Auth&action=login');
-    exit();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
 }
 
+// Initialiser les clés si elles ne sont pas déjà définies
+if (!isset($_SESSION['username'])) {
+  $_SESSION['username'] = 'username';
+}
+if (!isset($_SESSION['email'])) {
+  $_SESSION['email'] = ['email'];
+}
+if (!isset($_SESSION['role'])) {
+  $_SESSION['role'] = ['role'];
+}
 
-
-$username = $_SESSION['username']  ;
-$email =  $_SESSION['email'] ;
-$role =  $_SESSION['role'] ;
+// Récupérer les valeurs des clés
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$role = $_SESSION['role'];
 ?>
 
 
@@ -108,11 +116,11 @@ $role =  $_SESSION['role'] ;
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=accueil" class="logo">
+    <a href="<?php echo BASE_URL; ?>index.php?controller=Comptable&action=accueil" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>St</b>Henry</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b></span>
+      <span class="logo-lg"><b> <?php echo ($role); ?></b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -356,9 +364,9 @@ $role =  $_SESSION['role'] ;
 ?>
 
 
-    <h1>Bienvenu <?php echo $username; ?></h1>
-    <p>Email : <?php echo $email; ?></p>
-    <p>Rôle : <?php echo $role; ?></p>
+    <h1>Bienvenu <?php echo ($username); ?></h1>
+    <p>Email : <?php echo ($email); ?></p>
+    <p>Rôle : <?php echo ($role); ?></p>
 
     <a href="index.php?controller=Auth&action=logout">Déconnexion</a>
 
@@ -407,20 +415,20 @@ $role =  $_SESSION['role'] ;
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">MAIN NAVIGATION</li>
         <li class="active treeview">
-          <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=accueil">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=accueil">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li class="active"><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=accueil"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
+            <li class="active"><a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=accueil"><i class="fa fa-circle-o"></i> Dashboard v1</a></li>
             
           </ul>
         </li>
         
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=eleves">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=Compatble&action=eleves">
             <i class="fa fa-child"></i> <span>Eleves</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>
@@ -428,133 +436,30 @@ $role =  $_SESSION['role'] ;
           </a>
           
         </li>
-
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=parents">
-            <i class="fa fa-male"></i> <span>Parents</span>
+          <a href="<?php echo BASE_URL; ?>index.php?controller=Compatble&action=frais">
+            <i class="fa fa-child"></i> <span>Frais</span>
             <span class="pull-right-container">
-              <small class="label pull-right bg-green">new</small>
+              <small class="label pull-right bg-green"></small>
             </span>
           </a>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dollar"></i>
-            <span>Frais </span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=Frais"><i class="fa fa-circle-o"></i> Voir Frais</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutfrais"><i class="fa fa-circle-o"></i>Ajout frais</a></li>
-           
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Professeus</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutprofesseur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=professeurs"><i class="fa fa-circle-o"></i> Voir</a></li>
-           
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Prefet</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addPrefet"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=prefets"><i class="fa fa-circle-o"></i> Voir</a></li>
-            
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Directeurs</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirectrice"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directeurs"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
+          
         </li>
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-female"></i> <span>Comptables</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addcomptable"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=comptables"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
+       
+        
+       
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-female"></i> <span>Directrices</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirecteur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directrices"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
+
+       
 
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Classes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addclasse"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=classes"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-book"></i> <span>Cours</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutcours"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=cours"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-users"></i> <span>Employes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutemployes"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=employes"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
+       
 
         <li>
           <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=rapportactions">
@@ -716,7 +621,7 @@ $role =  $_SESSION['role'] ;
           </div>
         </div>
         </div>
-        </section>
+    
 
       <!-- /.row -->
       <!-- Main row -->
@@ -802,6 +707,7 @@ $role =  $_SESSION['role'] ;
       <h3 class="control-sidebar-heading">Tasks Progress</h3>
       <ul class="control-sidebar-menu">
         <li>
+
           <a href="javascript:void(0)">
             <h4 class="control-sidebar-subheading">
               Custom Template Design
@@ -1163,6 +1069,31 @@ $(function () {
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.7 -->
+<script>
+    // Données pour le graphique
+    var ctx = document.getElementById('barChart').getContext('2d');
+    var barChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Add', 'Edit', 'Delete'],
+        datasets: [{
+          label: 'User Activities',
+          data: [<?php echo $add_count; ?>, <?php echo $edit_count; ?>, <?php echo $delete_count; ?>],
+          backgroundColor: ['#00a65a', '#f39c12', '#f56954']
+        }]
+      },
+      options: {
+        scales: {
+          yAxes: [{
+            ticks: {
+              beginAtZero: true
+            }
+          }]
+        }
+      }
+    });
+  </script>
+
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="bower_components/raphael/raphael.min.js"></script>

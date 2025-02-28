@@ -37,15 +37,15 @@ class UserModel {
         return $result->fetch_assoc();
     }
 
-    public function add($username, $password, $role) {
-        $stmt = $this->db->prepare("INSERT INTO users (username, password, role) VALUES (?, ?, ?)");
-        $stmt->bind_param("sss", $username, $password, $role);
+    public function add($username, $email, $password, $role) {
+        $stmt = $this->db->prepare("INSERT INTO users (username,email, password, role) VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $username,$email, $password, $role);
         $stmt->execute();
     }
 
-    public function update($id, $username, $password, $role) {
-        $stmt = $this->db->prepare("UPDATE users SET username = ?, password = ?, role = ? WHERE id = ?");
-        $stmt->bind_param("sssi", $username, $password, $role, $id);
+    public function update($id, $username,$email, $password, $role) {
+        $stmt = $this->db->prepare("UPDATE users SET username = ?, email=?, password = ?, role = ? WHERE id = ?");
+        $stmt->bind_param("ssssi", $username,$email, $password, $role, $id);
         $stmt->execute();
     }
 
@@ -81,6 +81,7 @@ class UserModel {
 
         return true;
     }
+    
 }
 ?>
 

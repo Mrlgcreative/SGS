@@ -1,6 +1,6 @@
 
 <?php
-session_start();
+
 
 // Inclusion des fichiers de configuration
 require 'config/config.php';
