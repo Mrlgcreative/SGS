@@ -560,8 +560,8 @@
                     <td><?php echo $eleve['adresse']; ?></td>
                     <td><?php echo $eleve['contact']; ?></td>
                     <td><?php echo $eleve['parent_nom']; ?></td>
-                    <td><?php echo $eleve['classe']; ?></td>
-                    <td><?php echo $eleve['frais_statut']; ?></td>
+                    <td><?php echo $eleve['classe_id']; ?></td>
+                    <td><?php echo $eleve['frais_status']; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

@@ -58,23 +58,27 @@ class Admin {
             $prenom = $_POST['prenom'];
             $date_naissance = $_POST['date_naissance'];
             $sexe = $_POST['sexe'];
-            $classe = $_POST['classe'];
+            $section = $_POST['section'];
+            $option = !empty($_POST['option']) ? $_POST['option'] : NULL;
+            $classe_id = $_POST['classe_id'];
             $adresse = $_POST['adresse'];
             $contact = $_POST['contact'];
-            $id_parent = $_POST['id_parent'];
+            $parent_id = $_POST['parent_id'];
             $frais_status = $_POST['frais_status'];
     
             $eleveModel = new EleveModel();
-            $eleveModel->add($nom, $prenom, $date_naissance, $sexe, $classe, $adresse, $contact, $id_parent, $frais_status);
+            $eleveModel->add($nom, $prenom, $date_naissance, $sexe, $section, $option, $classe_id, $adresse, $contact, $parent_id, $frais_status);
     
             // Rediriger après ajout
             header("Location: " . BASE_URL . "index.php?controller=Admin&action=eleves");
         } else {
             $classeModel = new ClasseModel();
-            $classes = $classeModel->getAllClasses();
+            $classes = $classeModel->getAllClasses(); // Récupération des classes
+            $parentModel = new ParentModel();
+            $parents = $parentModel->getAllParents(); // Récupération des parents
             include 'views/admin/add_eleve.php';
         }
-    }
+    }   
     
 
     public function professeurs() {

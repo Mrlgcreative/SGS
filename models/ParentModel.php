@@ -29,6 +29,19 @@ class ParentModel {
         $stmt->execute();
     }
 
+   // Méthode pour récupérer tous les parents
+   public function getAllParents() {
+    $sql = "SELECT id, nom FROM parents";
+    $result = $this->db->query($sql);
+
+    if (!$result) {
+        throw new Exception("Erreur lors de la récupération des parents : " . $this->db->error);
+    }
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+
     public function update($id, $nom, $prenom, $contact, $email) {
         $stmt = $this->db->prepare("UPDATE parents SET nom = ?, prenom = ?, contact = ?, email = ? WHERE id = ?");
         $stmt->bind_param("ssssi", $nom, $prenom, $contact, $email, $id);

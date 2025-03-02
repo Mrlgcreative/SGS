@@ -40,7 +40,7 @@ $row = $result->fetch_assoc();
 $total_comptables = $row['total_comptables'];
 
 // Récupérer le nombre total de frais de paiement
-$result = $mysqli->query("SELECT SUM(amount_paid) AS total_frais FROM fee_payments");
+$result = $mysqli->query("SELECT SUM(amount_paid) AS total_frais FROM paiements_frais");
 $row = $result->fetch_assoc();
 $total_frais = $row['total_frais'];
 
@@ -48,17 +48,25 @@ $total_frais = $row['total_frais'];
 $mysqli->close();
 
 // Vérifiez si une session est déjà active avant d'appeler session_start()
-session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: ' . BASE_URL . 'index.php?controller=Auth&action=login');
-    exit();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
 }
 
+// Initialiser les clés si elles ne sont pas déjà définies
+if (!isset($_SESSION['username'])) {
+  $_SESSION['username'] = 'username';
+}
+if (!isset($_SESSION['email'])) {
+  $_SESSION['email'] = ['email'];
+}
+if (!isset($_SESSION['role'])) {
+  $_SESSION['role'] = ['role'];
+}
 
-
-$username = $_SESSION['username']  ;
-$email =  $_SESSION['email'] ;
-$role =  $_SESSION['role'] ;
+// Récupérer les valeurs des clés
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$role = $_SESSION['role'];
 ?>
 
 

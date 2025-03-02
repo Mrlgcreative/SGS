@@ -36,7 +36,13 @@ class ClasseModel {
     }
 
     public function getAllClasses() {
-        $result = $this->db->query("SELECT * FROM classes");
+        $sql = "SELECT id, nom FROM classes";
+        $result = $this->db->query($sql);
+
+        if (!$result) {
+            throw new Exception("Erreur lors de la récupération des classes : " . $this->db->error);
+        }
+
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 

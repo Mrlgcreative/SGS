@@ -1,76 +1,3 @@
-<?php
-// Connexion à la base de données
-$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
-
-if ($mysqli->connect_error) {
-    die("Connection failed: " . $mysqli->connect_error);
-}
-
-// Récupérer le nombre d'élèves inscrits
-$result = $mysqli->query("SELECT COUNT(*) AS total_eleves FROM eleves");
-$row = $result->fetch_assoc();
-$total_eleves = $row['total_eleves'];
-
-// Récupérer le nombre total d'élèves
-$total_eleves_total = $total_eleves; // Vous pouvez ajuster cette requête selon vos besoins
-
-// Récupérer le nombre de professeurs
-$result = $mysqli->query("SELECT COUNT(*) AS total_professeurs FROM professeurs");
-$row = $result->fetch_assoc();
-$total_professeurs = $row['total_professeurs'];
-
-// Récupérer le nombre de directeurs
-$result = $mysqli->query("SELECT COUNT(*) AS total_directeurs FROM directeur");
-$row = $result->fetch_assoc();
-$total_directeurs = $row['total_directeurs'];
-
-// Récupérer le nombre de directrices
-$result = $mysqli->query("SELECT COUNT(*) AS total_directrices FROM directrice");
-$row = $result->fetch_assoc();
-$total_directrices = $row['total_directrices'];
-
-// Récupérer le nombre de préfets
-$result = $mysqli->query("SELECT COUNT(*) AS total_prefets FROM prefet");
-$row = $result->fetch_assoc();
-$total_prefets = $row['total_prefets'];
-
-// Récupérer le nombre de comptables
-$result = $mysqli->query("SELECT COUNT(*) AS total_comptables FROM comptable");
-$row = $result->fetch_assoc();
-$total_comptables = $row['total_comptables'];
-
-// Récupérer le nombre total de frais de paiement
-$result = $mysqli->query("SELECT SUM(amount_paid) AS total_frais FROM paiements_frais");
-$row = $result->fetch_assoc();
-$total_frais = $row['total_frais'];
-
-// Fermer la connexion à la base de données
-$mysqli->close();
-
-// Vérifiez si une session est déjà active avant d'appeler session_start()
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-
-// Initialiser les clés si elles ne sont pas déjà définies
-if (!isset($_SESSION['username'])) {
-  $_SESSION['username'] = 'username';
-}
-if (!isset($_SESSION['email'])) {
-  $_SESSION['email'] = ['email'];
-}
-if (!isset($_SESSION['role'])) {
-  $_SESSION['role'] = ['role'];
-}
-
-// Récupérer les valeurs des clés
-$username = $_SESSION['username'];
-$email = $_SESSION['email'];
-$role = $_SESSION['role'];
-?>
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -116,11 +43,11 @@ $role = $_SESSION['role'];
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="<?php echo BASE_URL; ?>index.php?controller=Comptable&action=accueil" class="logo">
+    <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=accueil" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>St</b>Henry</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b> <?php echo ($role); ?></b></span>
+      <span class="logo-lg"><b>Admin</b></span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -150,7 +77,7 @@ $role = $_SESSION['role'];
                       <h4>
                         Equipe de assistance</small>
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p></p>
                     </a>
                   </li>
                   <!-- end message -->
@@ -161,9 +88,9 @@ $role = $_SESSION['role'];
                       </div>
                       <h4>
                         Admin
-                        <small><i class="fa fa-clock-o"></i> 2 hours</small>
+                        <small><i class="fa fa-clock-o"></i></small>
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p></p>
                     </a>
                   </li>
                   <li>
@@ -172,10 +99,10 @@ $role = $_SESSION['role'];
                         <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
-                        Developers
-                        <small><i class="fa fa-clock-o"></i> Today</small>
+                       
+                        <small><i class="fa fa-clock-o"></i> </small>
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p></p>
                     </a>
                   </li>
                   <li>
@@ -184,10 +111,10 @@ $role = $_SESSION['role'];
                         <img src="dist/img/user3-128x128.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
-                        Sales Department
-                        <small><i class="fa fa-clock-o"></i> Yesterday</small>
+                        
+                        <small><i class="fa fa-clock-o"></i> </small>
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p></p>
                     </a>
                   </li>
                   <li>
@@ -196,57 +123,56 @@ $role = $_SESSION['role'];
                         <img src="dist/img/user4-128x128.jpg" class="img-circle" alt="User Image">
                       </div>
                       <h4>
-                        Reviewers
-                        <small><i class="fa fa-clock-o"></i> 2 days</small>
+                       
+                        <small><i class="fa fa-clock-o"></i></small>
                       </h4>
-                      <p>Why not buy a new awesome theme?</p>
+                      <p></p>
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">See All Messages</a></li>
+              <li class="footer"><a href="#"></a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">10</span>
+              <span class="label label-warning"></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">You have 10 notifications</li>
+              <li class="header"></li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                      <i class="fa fa-users text-aqua"></i> 
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-warning text-yellow"></i> Very long description here that may not fit into the
-                      page and may cause design problems
+                      <i class="fa fa-warning text-yellow"></i> 
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-red"></i> 5 new members joined
+                      <i class="fa fa-users text-red"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-shopping-cart text-green"></i> 25 sales made
+                      <i class="fa fa-shopping-cart text-green"></i>
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-user text-red"></i> You changed your username
+                      <i class="fa fa-user text-red"></i> 
                     </a>
                   </li>
                 </ul>
               </li>
-              <li class="footer"><a href="#">View all</a></li>
+              <li class="footer"><a href="#"></a></li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
@@ -278,13 +204,13 @@ $role = $_SESSION['role'];
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Create a nice theme
-                        <small class="pull-right">40%</small>
+                        
+                        <small class="pull-right"></small>
                       </h3>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-green" style="width: 40%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">40% Complete</span>
+                          <span class="sr-only"></span>
                         </div>
                       </div>
                     </a>
@@ -293,13 +219,13 @@ $role = $_SESSION['role'];
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Some task I need to do
-                        <small class="pull-right">60%</small>
+                        
+                        <small class="pull-right"></small>
                       </h3>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-red" style="width: 60%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">60% Complete</span>
+                          <span class="sr-only"></span>
                         </div>
                       </div>
                     </a>
@@ -308,13 +234,13 @@ $role = $_SESSION['role'];
                   <li><!-- Task item -->
                     <a href="#">
                       <h3>
-                        Make beautiful transitions
-                        <small class="pull-right">80%</small>
+                        
+                        <small class="pull-right"></small>
                       </h3>
                       <div class="progress xs">
                         <div class="progress-bar progress-bar-yellow" style="width: 80%" role="progressbar"
                              aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                          <span class="sr-only">80% Complete</span>
+                          <span class="sr-only"></span>
                         </div>
                       </div>
                     </a>
@@ -331,14 +257,17 @@ $role = $_SESSION['role'];
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $username; ?></span>
+              <span class="hidden-xs">SKY</span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                <p><?php echo $role; ?></p>
+                <p>
+                 admin
+                  <small>2025</small>
+                </p>
               </li>
               <!-- Menu Body -->
               <li class="user-body">
@@ -358,19 +287,7 @@ $role = $_SESSION['role'];
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                <?php
-
-
-?>
-
-
-    <h1>Bienvenu <?php echo ($username); ?></h1>
-    <p>Email : <?php echo ($email); ?></p>
-    <p>Rôle : <?php echo ($role); ?></p>
-
-    <a href="index.php?controller=Auth&action=logout">Déconnexion</a>
-
-
+                  <a href="#" class="btn btn-default btn-flat">Profil</a>
                 </div>
                 <div class="pull-right">
                   <a href="<?php echo BASE_URL; ?>index.php?controller=Auth&action=logout" class="btn btn-default btn-flat">Deconnexion</a>
@@ -396,7 +313,7 @@ $role = $_SESSION['role'];
           <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p><?php echo $username; ?></p>
+          <p>SKY</p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -511,142 +428,54 @@ $role = $_SESSION['role'];
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $total_eleves; ?></h3>
-              <p>Eleves inscrits</p>
+      <div class="box">
+            <div class="box-header">
+              <h3 class="box-title">Total eleves</h3>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo $total_eleves_total; ?></h3>
-              <p>Eleves total</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-group"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo $total_professeurs; ?></h3>
-              <p>Professeurs</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo $total_directeurs;?></h3>
-              <p>Directeurs</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-male"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $total_directrices; ?></h3>
-              <p>Directrices</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-female"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo $total_prefets; ?></h3>
-              <p>Préfets</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-male"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo $total_comptables; ?></h3>
-              <p>Comptables</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-group"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo $total_frais; ?></h3>
-              <p>Frais de paiement</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-dollar"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        </div>
-    
+            <!-- /.box-header -->
+            <div class="box-body">
+              <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                <tr>
+                  <th>Id</th>
+                  <th>Nom</th>
+                  <th>Prenom</th>
+                  <th>Date de naissance</th>
+                  <th>Sexe</th>
+                  <th>Section</th>
+                  <th>Option</th>
+                  <th>Adresse</th>
+                  <th>Contact</th>
+                  <th>Nom parent</th>
+                  <th>Classe</th>
+                  <th>Frais_statut</th>
+                </tr>
+                </thead>
+                <?php foreach ($eleves as $eleve) : ?>
+                <tr>
+                    <td><?php echo $eleve['id']; ?></td>
+                    <td><?php echo $eleve['nom']; ?></td>
+                    <td><?php echo $eleve['prenom']; ?></td>
+                    <td><?php echo $eleve['date_naissance']; ?></td>
+                    <td><?php echo $eleve['sexe']; ?></td>
+                    <td><?php echo $eleve['section']; ?></td>
+                    <td><?php echo $eleve['option']; ?></td>
+                    <td><?php echo $eleve['adresse']; ?></td>
+                    <td><?php echo $eleve['contact']; ?></td>
+                    <td><?php echo $eleve['parent_nom']; ?></td>
+                    <td><?php echo $eleve['classe_id']; ?></td>
+                    <td><?php echo $eleve['frais_status']; ?></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
 
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">Bar Chart</h3>
-
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                
+              </table>
+            </div>
+            <!-- /.box-body -->
           </div>
+          <!-- /.box -->
         </div>
-        <div class="box-body">
-          <div class="chart">
-            <canvas id="barChart" style="height:230px"></canvas>
-          </div>
-        </div>
-        <!-- /.box-body -->
-      </div>
       
 </div>
 <!-- ./wrapper -->
@@ -712,7 +541,6 @@ $role = $_SESSION['role'];
       <h3 class="control-sidebar-heading">Tasks Progress</h3>
       <ul class="control-sidebar-menu">
         <li>
-
           <a href="javascript:void(0)">
             <h4 class="control-sidebar-subheading">
               Custom Template Design
@@ -1073,34 +901,47 @@ $(function () {
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
+<!-- jQuery 3 -->
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SlimScroll -->
+<script src="bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<!-- FastClick -->
+<script src="bower_components/fastclick/lib/fastclick.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+<!-- page script -->
 <script>
-    // Données pour le graphique
-    var ctx = document.getElementById('barChart').getContext('2d');
-    var barChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Add', 'Edit', 'Delete'],
-        datasets: [{
-          label: 'User Activities',
-          data: [<?php echo $add_count; ?>, <?php echo $edit_count; ?>, <?php echo $delete_count; ?>],
-          backgroundColor: ['#00a65a', '#f39c12', '#f56954']
-        }]
-      },
-      options: {
-        scales: {
-          yAxes: [{
-            ticks: {
-              beginAtZero: true
-            }
-          }]
-        }
-      }
-    });
-  </script>
-
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
+<!-- Bootstrap 3.3.7 -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
+<script>
+        function printContent(elementId) {
+            var content = document.getElementById(elementId).innerHTML;
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = content;
+            window.print();
+            document.body.innerHTML = originalContent;
+        }
+    </script>
 <script src="bower_components/raphael/raphael.min.js"></script>
 <script src="bower_components/morris.js/morris.min.js"></script>
 <!-- Sparkline -->

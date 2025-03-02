@@ -95,3 +95,100 @@ Avec cette mise en œuvre, vous pouvez afficher les informations du profil de l'
 Sources:
 [1]  (https://github.com/Developers-Society-Jadavpur-University/venue-booking/tree/c039c5d72427a6b5745fd3aac1954296f9c73b56/controllers%2Fauth.php)
 [2]  (https://github.com/RaineCagape/USeP_Online_Guidance_Counseling/tree/152b90c001dc7e27378cbb1458d06b2628b2758e/Profile.php)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Voici une version améliorée de votre formulaire d'inscription. J'ai ajouté des améliorations pour l'accessibilité, la sécurité, ainsi que des placeholders et options par défaut pour améliorer l'expérience utilisateur.
+
+Formulaire mis à jour
+
+```php
+<div class="container">
+    <h2>INSCRIPTION</h2>
+    <form method="POST" action="index.php?controller=Admin&action=ajoutEleve">
+        <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Entrez le nom" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Entrez le prénom" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="date_naissance">Date de Naissance :</label>
+            <input type="date" id="date_naissance" name="date_naissance" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="sexe">Sexe :</label>
+            <select id="sexe" name="sexe" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez le sexe --</option>
+                <option value="M">Masculin</option>
+                <option value="F">Féminin</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="section">Section :</label>
+            <select id="section" name="section" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez une section --</option>
+                <option value="maternelle">Maternelle</option>
+                <option value="primaire">Primaire</option>
+                <option value="secondaire">Secondaire</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="option">Option :</label>
+            <input type="text" id="option" name="option" placeholder="Entrez l'option (si applicable)" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="classe_id">Classe :</label>
+            <select id="classe_id" name="classe_id" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez une classe --</option>
+                <?php foreach ($classes as $classe): ?>
+                    <option value="<?php echo htmlspecialchars($classe['id']); ?>">
+                        <?php echo htmlspecialchars($classe['nom']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="adresse">Adresse :</label>
+            <input type="text" id="adresse" name="adresse" placeholder="Entrez l'adresse" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="contact">Contact :</label>
+            <input type="text" id="contact" name="contact" placeholder="Entrez le numéro de contact" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="parent_id">Parent :</label>
+            <select name="parent_id" id="parent_id" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez un parent --</option>
+                <?php foreach ($parents as $parent): ?>
+                    <option value="<?php echo htmlspecialchars($parent['id']); ?>">
+                        <?php echo htmlspecialchars($parent['nom']); ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="frais_status">Statut des frais :</label>
+            <select id="frais_status" name="frais_status" class="form-select" required>
+                <option value="" disabled selected>-- Sélectionnez le statut des frais --</option>
+                <option value="payé">Payé</option>
+                <option value="non payé">Non payé</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Ajouter</button>
+    </form>
+</div>

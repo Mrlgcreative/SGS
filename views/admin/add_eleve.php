@@ -1,3 +1,79 @@
+
+
+
+<?php
+// Connexion à la base de données
+$mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+// Récupérer le nombre d'élèves inscrits
+$result = $mysqli->query("SELECT COUNT(*) AS total_eleves FROM eleves");
+$row = $result->fetch_assoc();
+$total_eleves = $row['total_eleves'];
+
+// Récupérer le nombre total d'élèves
+$total_eleves_total = $total_eleves; // Vous pouvez ajuster cette requête selon vos besoins
+
+// Récupérer le nombre de professeurs
+$result = $mysqli->query("SELECT COUNT(*) AS total_professeurs FROM professeurs");
+$row = $result->fetch_assoc();
+$total_professeurs = $row['total_professeurs'];
+
+// Récupérer le nombre de directeurs
+$result = $mysqli->query("SELECT COUNT(*) AS total_directeurs FROM directeur");
+$row = $result->fetch_assoc();
+$total_directeurs = $row['total_directeurs'];
+
+// Récupérer le nombre de directrices
+$result = $mysqli->query("SELECT COUNT(*) AS total_directrices FROM directrice");
+$row = $result->fetch_assoc();
+$total_directrices = $row['total_directrices'];
+
+// Récupérer le nombre de préfets
+$result = $mysqli->query("SELECT COUNT(*) AS total_prefets FROM prefet");
+$row = $result->fetch_assoc();
+$total_prefets = $row['total_prefets'];
+
+// Récupérer le nombre de comptables
+$result = $mysqli->query("SELECT COUNT(*) AS total_comptables FROM comptable");
+$row = $result->fetch_assoc();
+$total_comptables = $row['total_comptables'];
+
+// Récupérer le nombre total de frais de paiement
+$result = $mysqli->query("SELECT SUM(amount_paid) AS total_frais FROM paiements_frais");
+$row = $result->fetch_assoc();
+$total_frais = $row['total_frais'];
+
+// Fermer la connexion à la base de données
+$mysqli->close();
+
+// Vérifiez si une session est déjà active avant d'appeler session_start()
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+// Initialiser les clés si elles ne sont pas déjà définies
+if (!isset($_SESSION['username'])) {
+  $_SESSION['username'] = 'username';
+}
+if (!isset($_SESSION['email'])) {
+  $_SESSION['email'] = ['email'];
+}
+if (!isset($_SESSION['role'])) {
+  $_SESSION['role'] = ['role'];
+}
+
+// Récupérer les valeurs des clés
+$username = $_SESSION['username'];
+$email = $_SESSION['email'];
+$role = $_SESSION['role'];
+?>
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -345,7 +421,7 @@
         </li>
         
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=eleves">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=eleves">
             <i class="fa fa-child"></i> <span>Eleves</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>
@@ -355,131 +431,34 @@
         </li>
 
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=parents">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=paiement">
             <i class="fa fa-male"></i> <span>Parents</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green">new</small>
             </span>
           </a>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dollar"></i>
-            <span>Frais </span>
+        <li>
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=inscriptions">
+            <i class="fa fa-male"></i> <span>Inscription</span>
             <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
+              <small class="label pull-right bg-green">new</small>
             </span>
           </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutFrais"><i class="fa fa-circle-o"></i> Ajouter Frais</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=frais"><i class="fa fa-circle-o"></i> frais</a></li>
-           
-          </ul>
         </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-laptop"></i>
-            <span>Professeur</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutprofesseur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=professeurs"><i class="fa fa-circle-o"></i> Voir</a></li>
-           
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Prefet</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addPrefet"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=prefets">Préfets"><i class="fa fa-circle-o"></i> Voir</a></li>
-            
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-user"></i> <span>Directeurs</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirectrice"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directeurs"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
+       
+      
+      
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-female"></i> <span>Directrices</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirecteur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directrices"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-female"></i> <span>Comptables</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addcomptable"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=comptable"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+        
 
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-table"></i> <span>Classes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addclasse"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=classes"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
 
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-book"></i> <span>Cours</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutcours"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=cours"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-users"></i> <span>Employes</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=ajoutemployes"><i class="fa fa-circle-o"></i> Ajouter</a></li>
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=employes"><i class="fa fa-circle-o"></i> Voir</a></li>
-          </ul>
-        </li>
+       
 
         <li>
           <a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=rapportactions">

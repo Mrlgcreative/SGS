@@ -1,3 +1,5 @@
+
+
 <?php
 // Connexion à la base de données
 $mysqli = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
@@ -86,6 +88,7 @@ $role = $_SESSION['role'];
   <!-- Ionicons -->
   <link rel="stylesheet" href="bower_components/Ionicons/css/ionicons.min.css">
   <!-- Theme style -->
+
   <link rel="stylesheet" href="dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
@@ -438,7 +441,7 @@ $role = $_SESSION['role'];
         </li>
        
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=ajoutInscription">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=ajoutInscriptions">
             <i class="fa fa-child"></i> <span>Insciption</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>
@@ -511,142 +514,76 @@ $role = $_SESSION['role'];
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $total_eleves; ?></h3>
-              <p>Eleves inscrits</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo $total_eleves_total; ?></h3>
-              <p>Eleves total</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-group"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo $total_professeurs; ?></h3>
-              <p>Professeurs</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-user"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo $total_directeurs;?></h3>
-              <p>Directeurs</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-male"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-    </div>
-    <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3><?php echo $total_directrices; ?></h3>
-              <p>Directrices</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-female"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3><?php echo $total_prefets; ?></h3>
-              <p>Préfets</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-male"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3><?php echo $total_comptables; ?></h3>
-              <p>Comptables</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-group"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-red">
-            <div class="inner">
-              <h3><?php echo $total_frais; ?></h3>
-              <p>Frais de paiement</p>
-            </div>
-            <div class="icon">
-              <i class="fa fa-dollar"></i>
-            </div>
-            <a href="#" class="small-box-footer">Voir Plus <i class="fa fa-arrow-circle-right"></i></a>
-          </div>
-        </div>
-        </div>
-    
 
-      <!-- /.row -->
-      <!-- Main row -->
-      <div class="box box-success">
-        <div class="box-header with-border">
-          <h3 class="box-title">Bar Chart</h3>
+   
+   
 
-          <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-            </button>
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-          </div>
+<div class="container mt-5">
+    <h2>Formulaire de Paiement</h2>
+    <form action="<?php echo BASE_URL; ?>index.php?controller=comptable&action=recu" method="POST">
+        <div class="mb-3">
+            <label for="eleve_id" class="form-label">ID de l'élève</label>
+            <input type="number" class="form-control" id="eleve_id" name="eleve_id" required>
         </div>
-        <div class="box-body">
-          <div class="chart">
-            <canvas id="barChart" style="height:230px"></canvas>
-          </div>
+        <div class="mb-3">
+            <label for="frais_id" class="form-label">ID du Frais</label>
+            <input type="number" class="form-control" id="frais_id" name="frais_id" required>
         </div>
-        <!-- /.box-body -->
-      </div>
+        <div class="mb-3">
+            <label for="amount_paid" class="form-label">Montant Payé</label>
+            <input type="number" class="form-control" id="amount_paid" name="amount_paid" required>
+        </div>
+        <div class="mb-3">
+            <label for="payment_date" class="form-label">Date de Paiement</label>
+            <input type="date" class="form-control" id="payment_date" name="payment_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="created_at" class="form-label">Date de Création</label>
+            <input type="date" class="form-control" id="created_at" name="created_at" required>
+        </div>
+        <div class="mb-3">
+            <label for="mois" class="form-label">Mois</label>
+            <select class="form-select" id="mois" name="mois" required>
+                <option value="Janvier">Janvier</option>
+                <option value="Février">Février</option>
+                <option value="Mars">Mars</option>
+                <option value="Avril">Avril</option>
+                <option value="Mai">Mai</option>
+                <option value="Juin">Juin</option>
+                <option value="Septembre">Septembre</option>
+                <option value="Octobre">Octobre</option>
+                <option value="Novembre">Novembre</option>
+                <option value="Décembre">Décembre</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="classe_id" class="form-label">ID de la Classe</label>
+            <input type="text" class="form-control" id="classe_id" name="classe_id" required>
+        </div>
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <select class="form-select" id="section" name="section" onchange="toggleOptionField()" required>
+            <option value="maternel">Maternelle</option>
+                <option value="primaire">Primaire</option>
+                <option value="secondaire">Secondaire</option>
+            </select>
+        </div>
+        <div class="mb-3" id="option_field" style="display: none;">
+            <label for="option_id" class="form-label">Option</label>
+            <select class="form-select" id="option_id" name="option_id">
+                <option value="Scientifique">Scientifique</option>
+                <option value="Littéraire">Pedagogie Generale</option>
+                <option value="Commerciale">Commerciale</option>
+                <option value="electronique">Electronique</option>
+                <option value="electricite">Electricite</option>
+                <option value="Commerciale">Mecanique Auto</option>
+                <option value="Commerciale">Mecanique Generale</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Faire un Reçu</button>
+    </form>
+</div>
+
       
 </div>
 <!-- ./wrapper -->
@@ -1123,6 +1060,17 @@ $(function () {
 <script src="bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="dist/js/adminlte.min.js"></script>
+<script>
+        function toggleOptionField() {
+            var section = document.getElementById("section").value;
+            var optionField = document.getElementById("option_field");
+            if (section === "secondaire") {
+                optionField.style.display = "block";
+            } else {
+                optionField.style.display = "none";
+            }
+        }
+    </script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
