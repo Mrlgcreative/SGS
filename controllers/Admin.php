@@ -109,6 +109,8 @@ class Admin {
         }
     }
 
+   
+
     public function frais() {
         $frais = $this->fraisModel->getAll();
         require 'views/admin/frais.php';
@@ -134,6 +136,22 @@ class Admin {
         $directeurs = $this->userModel->getByRole('director');
         require 'views/admin/directeurs.php';
     }
+
+    public function addDirecteur(){
+        if ($_SERVER['REQUEST_METHOD']=='POST'){
+            $nom= $_POST['nom'];
+            $prenom=$_POST['prenom'];
+            $contact= $_POST['contact'];
+            $email=$_POST['email'];
+            $adresse =$_POST ['adresse'];
+            $section=$_POST['section'];
+            $this->directorModel->add($nom, $prenom, $contact, $email, $adresse, $section);
+            header('location: '. BASE_URL .'index.php?controller=Admin&action=directeurs');
+
+        }else{
+            require 'views/admin/add_directeur.php';
+        }
+    }
     public function rapport() {
         $userModel = new UserModel();
         $feeModel = new FeeModel();
@@ -152,12 +170,14 @@ class Admin {
     }
 
     public function directrices() {
-        $directrices = $this->userModel->getByRole('directrice');
+        $directriceModel = new DirectriceModel();
+        $directrices= $directriceModel->getAllDirectrice();
         require 'views/admin/directrices.php';
     }
 
     public function prefets() {
-        $prefets = $this->userModel->getByRole('prefet');
+        $prefesModel= new PrefetModel();
+        $prefets =$prefesModel->getAll();
         require 'views/admin/prefets.php';
     }
 
@@ -207,28 +227,7 @@ public function ajoutemployes() {
 }
 
 // Méthode pour modifier un employé
-public function editEmploye() {
-    $employeModel = new EmployeModel();
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Traitement du formulaire de modification d'un employé
-        $id = $_POST['id'];
-        $nom = $_POST['nom'];
-        $prenom = $_POST['prenom'];
-        $email = $_POST['email'];
-        $contact = $_POST['contact'];
-        $poste = $_POST['poste'];
-
-        $employeModel->update($id, $nom, $prenom, $email, $contact, $poste);
-
-        // Rediriger après modification
-        header("Location: " . BASE_URL . "index.php?controller=Admin&action=employes");
-    } else {
-        $id = $_GET['id'];
-        $employe = $employeModel->getById($id);
-        include 'views/admin/edit_employe.php';
-    }
-}
 
 // Méthode pour supprimer un employé
 public function deleteEmploye() {
@@ -304,20 +303,22 @@ public function deleteEmploye() {
     }
 
     public function comptable() {
-        $comptables = $this->userModel->getByRole('comptable');
+        $comptableModel = new ComptableModel();
+        $comptables= $comptableModel->getAll();
         require 'views/admin/comptable.php';
     }
 
     public function addcomptable(){
-        if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+            
             $nom= $_POST['nom'];
             $prenom= $_POST['prenom'];
-            $contact=$_POST['contact'];
-            $email=$_POST['email'];
-            $adresse=$_POST['adresse'];
+            $contact = $_POST['contact'];
+            $email= $_POST['email'];
+            $adresse= $_POST['adresse'];
            
             $this->comptableModel->add($nom, $prenom, $contact, $email, $adresse );
-            header('Location: ' .BASE_URL . 'index.php?controller=Admin&action=comptable');
+            header('Location: ' .BASE_URL . 'index.php?controller=Admin&action=comptables');
 
         }else{
             require 'views/admin/add_comptable.php';

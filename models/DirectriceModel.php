@@ -10,13 +10,13 @@ class DirectriceModel {
         }
     }
 
-    public function getAll() {
-        $result = $this->db->query("SELECT * FROM directeur");
+    public function getAllDirectrice() {
+        $result = $this->db->query("SELECT * FROM directrice");
         return $result->fetch_all(MYSQLI_ASSOC);
     }
 
     public function getById($id) {
-        $stmt = $this->db->prepare("SELECT * FROM directeur WHERE id = ?");
+        $stmt = $this->db->prepare("SELECT * FROM directrice WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $result = $stmt->get_result();

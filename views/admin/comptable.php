@@ -560,7 +560,7 @@ display: none;
                 
                 </tr>
                 </thead>
-                <?php foreach ($comptables as $comptabl) : ?>
+               <?php foreach ($comptables as $comptabl) :  ?>
                 <tr>
                     <td><?php echo $comptabl['id']; ?></td>
                     <td><?php echo $comptabl['nom']; ?></td>
@@ -577,9 +577,8 @@ display: none;
                         </td>
               
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-
+       
+<?php endforeach; ?>
                 
               </table>
             </div>

@@ -40,6 +40,12 @@ class FraisModel {
         $stmt->bind_param("i", $id);
         $stmt->execute();
     }
+
+    public function getTotalFees() {
+        $result = $this->db->query("SELECT COUNT(*) AS total_fees FROM frais");
+        $row = $result->fetch_assoc();
+        return $row['total_fees'];
+    }
 }
 ?>
 
