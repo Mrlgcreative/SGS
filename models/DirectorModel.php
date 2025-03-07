@@ -24,13 +24,13 @@ class DirectorModel {
     }
 
     public function add($nom, $prenom,$contact, $email,$adresse, $section) {
-        $stmt = $this->db->prepare("INSERT INTO professeurs (nom, prenom, contact,  email, adresse,  section) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO directeur (nom, prenom, contact,  email, adresse,  section) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $nom, $prenom,$contact, $email, $adresse,   $section);
         $stmt->execute();
     }
 
     public function update($id, $nom, $prenom,$contact, $email, $adresse, $section) {
-        $stmt = $this->db->prepare("UPDATE professeurs SET nom = ?, prenom = ?,contact = ?, email = ?, adresse=? , section=? WHERE id = ?");
+        $stmt = $this->db->prepare("UPDATE directeur SET nom = ?, prenom = ?,contact = ?, email = ?, adresse=? , section=? WHERE id = ?");
         $stmt->bind_param("ssssssi", $nom, $prenom,$contact, $email, $adresse,  $section, $id);
         $stmt->execute();
     }

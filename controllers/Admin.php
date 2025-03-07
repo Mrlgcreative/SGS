@@ -41,7 +41,7 @@ class Admin {
         $this->classeModel = new ClasseModel();
         $this->comptableModel=new ComptableModel();
         $this->directorModel= new DirectorModel();  
-        $this->directriceModel=new DirectorModel();
+        $this->directriceModel=new DirectriceModel();
         $this->prefetModel=new PrefetModel();
      }
 
@@ -133,7 +133,8 @@ class Admin {
     }
 
     public function directeurs() {
-        $directeurs = $this->userModel->getByRole('director');
+        $directeurModel = new DirectorModel ();
+        $directeur= $directeurModel->getAll();
         require 'views/admin/directeurs.php';
     }
 
@@ -154,13 +155,13 @@ class Admin {
     }
     public function rapport() {
         $userModel = new UserModel();
-        $feeModel = new FeeModel();
+        $fraisModel = new FraisModel();
         $attendanceModel = new AttendanceModel();
         $comptableModel = new ComptableModel();
     
         // Récupérer les données
         $totalUsers = $userModel->getTotalUsers();
-        $totalFees = $feeModel->getTotalFees();
+        $totalFees = $fraisModel->getTotalFees();
         $totalPayments = $comptableModel->getAllPayments();
         $totalAttendances = $attendanceModel->getTotalAttendances();
         $financialReport = $comptableModel->generateFinancialReport();
@@ -175,7 +176,22 @@ class Admin {
         require 'views/admin/directrices.php';
     }
 
-    public function prefets() {
+    public function adddirectrice(){
+        if ($_SERVER['REQUEST_METHOD'] === "POST"){
+            $nom= $_POST['nom'];
+            $prenom= $_POST['prenom'];
+            $contact=$_POST['contact'];
+            $email= $_POST['email'];
+            $adresse= $_POST['adresse'];
+            $section =$_POST['section'];
+            $this->directriceModel->add($nom, $prenom, $contact, $email, $adresse, $section);
+            header('location: ' .BASE_URL . 'index.php?controller=Admin&action=directrices');
+        }else{
+            require 'views/admin/add_directrice.php';
+        }
+    }
+
+    public function prefet() {
         $prefesModel= new PrefetModel();
         $prefets =$prefesModel->getAll();
         require 'views/admin/prefets.php';
@@ -318,7 +334,7 @@ public function deleteEmploye() {
             $adresse= $_POST['adresse'];
            
             $this->comptableModel->add($nom, $prenom, $contact, $email, $adresse );
-            header('Location: ' .BASE_URL . 'index.php?controller=Admin&action=comptables');
+            header('Location: ' .BASE_URL . 'index.php?controller=Admin&action=comptable');
 
         }else{
             require 'views/admin/add_comptable.php';

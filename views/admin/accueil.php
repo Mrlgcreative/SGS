@@ -494,7 +494,7 @@ $role = $_SESSION['role'];
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirectrice"><i class="fa fa-circle-o"></i> Ajouter</a></li>
+            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirecteur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
             <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directeurs"><i class="fa fa-circle-o"></i> Voir</a></li>
           </ul>
         </li>
@@ -520,7 +520,7 @@ $role = $_SESSION['role'];
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addDirecteur"><i class="fa fa-circle-o"></i> Ajouter</a></li>
+            <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=adddirectrice"><i class="fa fa-circle-o"></i> Ajouter</a></li>
             <li><a href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=directrices"><i class="fa fa-circle-o"></i> Voir</a></li>
           </ul>
         </li>

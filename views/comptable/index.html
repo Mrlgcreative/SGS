@@ -1,0 +1,109 @@
+Voici un formulaire de paiement en PHP avec HTML qui correspond aux colonnes de votre base de données. Ce formulaire envoie les données à une page pour traitement (par exemple, process_payment.php).
+
+Code PHP et HTML pour le Formulaire de Paiement
+
+payment_form.php
+php
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire de Paiement</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 class="text-center">Formulaire de Paiement</h1>
+    <form action="process_payment.php" method="POST">
+        <!-- Éleve ID -->
+        <div class="mb-3">
+            <label for="eleve_id" class="form-label">ID de l'élève</label>
+            <input type="number" class="form-control" id="eleve_id" name="eleve_id" required>
+        </div>
+        
+        <!-- Montant payé -->
+        <div class="mb-3">
+            <label for="amount_paid" class="form-label">Montant payé</label>
+            <input type="number" step="0.01" class="form-control" id="amount_paid" name="amount_paid" required>
+        </div>
+        
+        <!-- Date de paiement -->
+        <div class="mb-3">
+            <label for="payment_date" class="form-label">Date de paiement</label>
+            <input type="date" class="form-control" id="payment_date" name="payment_date" required>
+        </div>
+        
+        <!-- ID MOI -->
+        <div class="mb-3">
+            <label for="moi_id" class="form-label">MOI ID</label>
+            <input type="number" class="form-control" id="moi_id" name="moi_id" required>
+        </div>
+        
+        <!-- ID Classe -->
+        <div class="mb-3">
+            <label for="classe_id" class="form-label">Classe ID</label>
+            <input type="number" class="form-control" id="classe_id" name="classe_id" required>
+        </div>
+        
+        <!-- Option ID -->
+        <div class="mb-3">
+            <label for="option_id" class="form-label">Option ID</label>
+            <input type="number" class="form-control" id="option_id" name="option_id" required>
+        </div>
+        
+        <!-- Section -->
+        <div class="mb-3">
+            <label for="section" class="form-label">Section</label>
+            <input type="text" class="form-control" id="section" name="section" required>
+        </div>
+        
+        <!-- Frais ID -->
+        <div class="mb-3">
+            <label for="frais_id" class="form-label">Frais ID</label>
+            <input type="number" class="form-control" id="frais_id" name="frais_id" required>
+        </div>
+        
+        <!-- Bouton de soumission -->
+        <button type="submit" class="btn btn-primary">Enregistrer le Paiement</button>
+    </form>
+</div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+
+Code PHP pour le Traitement du Paiement
+
+process_payment.php
+```php
+<?php
+// Connexion à la base de données
+$conn = new mysqli("localhost", "root", "", "votre_base_de_donnees");
+
+if ($conn->connect_error) {
+    die("Échec de la connexion à la base de données : " . $conn->connect_error);
+}
+
+// Récupération des données du formulaire
+$eleve_id = $_POST['eleve_id'];
+$amount_paid = $_POST['amount_paid'];
+$payment_date = $_POST['payment_date'];
+$moi_id = $_POST['moi_id'];
+$classe_id = $_POST['classe_id'];
+$option_id = $_POST['option_id'];
+$section = $_POST['section'];
+$frais_id = $_POST['frais_id'];
+$created_at = date('Y-m-d H:i:s');
+
+// Insertion des données dans la base de données
+$sql = "INSERT INTO payments (eleve_id, amount_paid, payment_date, created_at, moi_id, classe_id, option_id, section, frais_id)
+        VALUES ('$eleve_id', '$amount_paid', '$payment_date', '$created_at', '$moi_id', '$classe_id', '$option_id', '$section', '$frais_id')";
+
+if ($conn->query($sql) === TRUE) {
+    echo "Paiement enregistré avec succès.";
+} else {
+    echo "Erreur : " . $conn->error;
+}
+
+// Fermer la connexion

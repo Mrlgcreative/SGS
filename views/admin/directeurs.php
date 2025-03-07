@@ -550,7 +550,7 @@
                 
                 </tr>
                 </thead>
-                <?php foreach ($directeurs as $director) : ?>
+                <?php foreach ($directeur as $director) : ?>
                 <tr>
                     <td><?php echo $director['id']; ?></td>
                     <td><?php echo $director['nom']; ?></td>

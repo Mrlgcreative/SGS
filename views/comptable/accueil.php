@@ -23,7 +23,10 @@ $total_professeurs = $row['total_professeurs'];
 $result = $mysqli->query("SELECT COUNT(*) AS total_directeurs FROM directeur");
 $row = $result->fetch_assoc();
 $total_directeurs = $row['total_directeurs'];
-
+// recuperer le nombre des employer
+$result=$mysqli->query("SELECT COUNT(*) AS total_employes FROM employes");
+$row =$result->fetch_assoc();
+$total_employes=$row['total_employes'];
 // Récupérer le nombre de directrices
 $result = $mysqli->query("SELECT COUNT(*) AS total_directrices FROM directrice");
 $row = $result->fetch_assoc();
@@ -438,7 +441,7 @@ $role = $_SESSION['role'];
         </li>
        
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=ajoutInscription">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=inscriptions">
             <i class="fa fa-child"></i> <span>Insciption</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>
@@ -604,6 +607,21 @@ $role = $_SESSION['role'];
             <div class="inner">
               <h3><?php echo $total_comptables; ?></h3>
               <p>Comptables</p>
+            </div>
+            <div class="icon">
+              <i class="fa fa-group"></i>
+            </div>
+            <a href="#" class="small-box-footer">Voir plus <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><?php echo $total_employes; ?></h3>
+              <p>Employes</p>
             </div>
             <div class="icon">
               <i class="fa fa-group"></i>

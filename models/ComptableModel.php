@@ -28,7 +28,7 @@ class ComptableModel {
 
     // Méthode pour ajouter un comptable
     public function add($nom, $prenom,$contact, $email,$adresse) {
-        $stmt = $this->db->prepare("INSERT INTO professeurs (nom, prenom, contact,  email, adresse ) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO comptable (nom, prenom, contact,  email, adresse ) VALUES (?, ?, ?, ?, ?)");
         $stmt->bind_param("sssss", $nom, $prenom,$contact, $email, $adresse);
         $stmt->execute();
     }

@@ -38,6 +38,13 @@
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
+<style>
+    @media print{
+    .no-print{
+display: none;
+    }
+  }
+</style>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
 
@@ -526,12 +533,13 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
-      <div class="box">
+      <div class="box" id="content">
             <div class="box-header">
               <h3 class="box-title">Prefets</h3>
             </div>
             <!-- /.box-header -->
-            <button class="btn btn-succes" onclick="printContent('content')">Imprimer</button>
+            <button class="no-print btn btn-succes "  onclick="printContent('content')">imprimer</button>
+            <a  class="btn btn-succes no-print" href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addprefet">Ajouter</a>
             <div class="box-body">
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -550,7 +558,7 @@
                 </tr>
                 </thead>
                 <?php foreach ($prefets as $prefet) : ?>
-                <tr>
+                <tr >
                     <td><?php echo $prefet['id']; ?></td>
                     <td><?php echo $prefet['nom']; ?></td>
                     <td><?php echo $prefet['prenom']; ?></td>
@@ -560,7 +568,10 @@
                     <td><?php echo $prefet['section']; ?></td>
                     
                     
-                  
+                    <td class="no-print">
+                            <a  class="btn btn-warning" href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=editProfesseur&id=<?php echo $prefet['id']; ?>">Modifier</a> |
+                            <a  class="btn btn-danger"   href="<?php echo BASE_URL; ?>index.php?controller=Admin&action=deleteProfesseur&id=<?php echo $prefet['id']; ?>">Supprimer</a>
+                        </td>
               
                 </tr>
             <?php endforeach; ?>

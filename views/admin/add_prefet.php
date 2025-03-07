@@ -513,7 +513,46 @@
     <!-- Main content -->
     <section class="content">
       <!-- Small boxes (Stat box) -->
+      <h2>Ajout Prefet</h2>
+            <form action="<?php echo BASE_URL; ?>index.php?controller=Admin&action=addprefet" method="POST">
+               
+
+                <div class="form-group  has-feedback">
+                <label for="nom">Nom :</label>
+                <input type="text" class="form-control" id="nom" name="nom" required>
+                </div>
+                
+                <div class="form-group has-feedback">
+                <label for="prenom">Prenom</label>
+                <input type="text" class="form-control" id="prenom" name="prenom" required>
+                </div>
+
+                <div class="form-group has-feedback">
+                <label for="contact">Contact</label>
+                <input type="text" class="form-control" id="contact" name="contact" required>
+                </div>
+               
+                <div class="form-group  has-feedback">
+                <label for="email">Email :</label>
+                <input type="email" class="form-control"  id="email" name="email" required>
+                </div>
+                <div class="form-group has-feedback">
+                  <label for="adresse">Adresse: </label>
+                  <input type="text" class="form-control" id="adresse" name="adresse" required>
+                </div>
+                <label  for="section">Section :</label>
+                <select id="section" name="section" required>
+                <option value="section">Section</option>
+                    <option value="primaire">Primaire</option>
+                    <option value="secondaire">Secondaire</option>
+                    <option value="maternelle">Maternelle</option>
+                </select>
+
+                <button type="submit">Ajouter</button>
+                </form>
       
+      
+</div>
       
 </div>
 <!-- ./wrapper -->

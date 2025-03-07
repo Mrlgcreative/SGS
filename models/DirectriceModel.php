@@ -24,19 +24,19 @@ class DirectriceModel {
     }
 
     public function add($nom, $prenom,$contact, $email,$adresse, $section) {
-        $stmt = $this->db->prepare("INSERT INTO professeurs (nom, prenom, contact,  email, adresse,  section) VALUES (?, ?, ?, ?, ?, ?)");
+        $stmt = $this->db->prepare("INSERT INTO directrice (nom, prenom, contact,  email, adresse,  section) VALUES (?, ?, ?, ?, ?, ?)");
         $stmt->bind_param("ssssss", $nom, $prenom,$contact, $email, $adresse,   $section);
         $stmt->execute();
     }
 
     public function update($id, $nom, $prenom,$contact, $email, $adresse, $section) {
-        $stmt = $this->db->prepare("UPDATE professeurs SET nom = ?, prenom = ?,contact = ?, email = ?, adresse=? , section=? WHERE id = ?");
+        $stmt = $this->db->prepare("UPDATE directrice SET nom = ?, prenom = ?,contact = ?, email = ?, adresse=? , section=? WHERE id = ?");
         $stmt->bind_param("ssssssi", $nom, $prenom,$contact, $email, $adresse,  $section, $id);
         $stmt->execute();
     }
 
     public function delete($id) {
-        $stmt = $this->db->prepare("DELETE FROM directeur WHERE id = ?");
+        $stmt = $this->db->prepare("DELETE FROM directrice WHERE id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
     }

@@ -441,7 +441,7 @@ $role = $_SESSION['role'];
         </li>
        
         <li>
-          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=ajoutInscriptions">
+          <a href="<?php echo BASE_URL; ?>index.php?controller=comptable&action=inscriptions">
             <i class="fa fa-child"></i> <span>Insciption</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>

@@ -3,17 +3,21 @@
 require 'models/EleveModel.php';
 require 'models/PaiementModel.php';
 require 'models/ParentModel.php';
+require 'models/ClasseModel.php';
+
  // Assurez-vous d'inclure le fichier de configuration pour la connexion à la base de données
 
 class Comptable {
     private $eleveModel;
     private $paiementModel;
     private $parentModel;
+    private $classeModel;
 
     public function __construct() {
         $this->eleveModel = new EleveModel();
         $this->paiementModel = new PaiementModel();
         $this->parentModel = new ParentModel();
+        $this->classeModel=new ClasseModel();
     }
 
     public function accueil() {
@@ -54,7 +58,7 @@ class Comptable {
     }
 
     
-    public function ajoutInscription() {
+    public function inscriptions() {
         global $mysqli; // Utilisez la connexion MySQLi globale
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $nom = $_POST['nom'];
@@ -97,6 +101,13 @@ class Comptable {
         } else {
             echo "ID de l'élève ou du paiement manquant.";
         }
+    }
+
+    public function classes() {
+        $classModel = new ClasseModel();
+        $classes = $classModel->getAllClasses();
+    
+        include 'views/admin/classe.php';
     }
 
 }

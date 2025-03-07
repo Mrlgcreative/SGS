@@ -545,8 +545,8 @@ $role = $_SESSION['role'];
             <select id="classe_id" name="classe_id" class="form-select" required>
                 <option value="classe_id" disabled selected>-- Sélectionnez une classe --</option>
                 <?php foreach ($classes as $classe): ?>
-    <option value="<?php echo htmlspecialchars($classe['id']); ?>">
-        <?php echo htmlspecialchars($classe['nom']); ?>
+    <option value="<?php echo ($classe['nom']); ?>">
+        
     </option>
 <?php endforeach; ?>
 
